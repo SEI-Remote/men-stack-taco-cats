@@ -47,8 +47,20 @@ h2 {
   font-size: 3rem;
 }
 
-p, label {
+h3 {
+  font-size: 2.4rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+p, label, li, button, input {
   font-size: 1.8rem;
+}
+
+label {
+  font-weight: bold;
 }
 
 section {
@@ -57,4 +69,16 @@ section {
 
 a {
   color: #00B7FF;
+}
+
+nav > a {
+  margin: 1rem 3rem;
+  text-decoration: none;
+  font-size: 2.4rem;
+}
+
+.link {
+  padding: 1rem 0;
+  font-size: 1.8rem;
+  display: inline-block;
 }

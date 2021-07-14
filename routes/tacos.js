@@ -8,4 +8,14 @@ export {
 const router = Router()
 
 router.get('/', tacosCtrl.index)
-router.post('/', tacosCtrl.create)
+router.get('/:id', tacosCtrl.show)
+router.get('/:id/edit', isLoggedIn, tacosCtrl.edit)
+router.post('/', isLoggedIn, tacosCtrl.create)
+router.put('/:id', isLoggedIn, tacosCtrl.update)
+router.put('/:id/flip-tasty', isLoggedIn, tacosCtrl.flipTasty)
+router.delete('/:id', isLoggedIn, tacosCtrl.delete)
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/auth/google')
+}
