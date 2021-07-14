@@ -59,7 +59,8 @@ function index(req, res) {
   Profile.find({})
   .then(profiles => {
     res.render('profiles/index', {
-      profiles
+      profiles,
+      title: "🐱"
     })
   })
   .catch(err => {
@@ -69,6 +70,8 @@ function index(req, res) {
 }
 
 function show(req, res) {
+  console.log('RING RING RING RING RING RING RING, 🍌🕻🍌🕻🍌🕻🍌🕻 BANANA PHOOOOOOONE!!!🍌🕻🍌🕻🍌🕻')
+
   Profile.findById(req.params.id)
   .then(profile => {
     res.render('profiles/show', {

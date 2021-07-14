@@ -7,7 +7,40 @@ export {
   show,
   deleteTaco as delete,
   flipTasty,
-  edit
+  edit,
+  addIngredient,
+  removeIngredient
+}
+
+function removeIngredient(req, res) {
+  Taco.findById(req.params.id)
+  .then(taco => {
+    let idx = taco.ingredients.indexOf(ingredient => ingredient.name === req.body.name)
+    taco.ingredients[idx].remove()
+    taco.save()
+    .then(()=> {
+      res.redirect(`/tacos/${taco._id}`)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect(`/tacos/${taco._id}`)
+  })
+}
+
+function addIngredient(req, res) {
+  Taco.findById(req.params.id)
+  .then(taco => {
+    taco.ingredients.push(req.body)
+    taco.save()
+    .then(()=> {
+      res.redirect(`/tacos/${taco._id}`)
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect(`/tacos/${taco._id}`)
+  })
 }
 
 function edit(req, res) {
@@ -105,6 +138,7 @@ function create(req, res) {
 }
 
 function index(req, res) {
+  console.log('RING RING RING RING RING RING RING, 🍌🕻🍌🕻🍌🕻🍌🕻 BANANA PHOOOOOOONE!!!🍌🕻🍌🕻🍌🕻')
   Taco.find({})
   .then(tacos => {
     res.render('tacos/index', {

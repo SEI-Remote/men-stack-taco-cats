@@ -14,6 +14,9 @@ router.post('/', isLoggedIn, tacosCtrl.create)
 router.put('/:id', isLoggedIn, tacosCtrl.update)
 router.put('/:id/flip-tasty', isLoggedIn, tacosCtrl.flipTasty)
 router.delete('/:id', isLoggedIn, tacosCtrl.delete)
+router.post('/:id/ingredients', tacosCtrl.addIngredient)
+router.delete('/:id/ingredients', tacosCtrl.removeIngredient)
+
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next()
