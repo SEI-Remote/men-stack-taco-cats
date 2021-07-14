@@ -42,3 +42,19 @@ main {
 h1 {
   font-size: 3.6rem;
 }
+
+h2 {
+  font-size: 3rem;
+}
+
+p, label {
+  font-size: 1.8rem;
+}
+
+section {
+  padding: 50px;
+}
+
+a {
+  color: #00B7FF;
+}
