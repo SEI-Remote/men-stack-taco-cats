@@ -6,11 +6,20 @@
   <form action="/tacos/<%= taco._id %>?_method=PUT" method="POST">
     <label>
       Name: 
-      <input type="text" name="name" value="<%= taco.name %> ">
+      <input 
+        type="text"
+        name="name" 
+        value="<%= taco.name %>" 
+        autocomplete="off"
+      >
     </label>
     <label>
       Tasty?
-      <input type="checkbox" name="tasty" <%= taco.tasty ? "checked" : "" %> >
+      <input 
+        type="checkbox" 
+        name="tasty" <%= taco.tasty ? "checked" : "" %> 
+        autocomplete="off"
+      >
     </label>
     <button type="submit">Edit the 🌮</button>
   </form>

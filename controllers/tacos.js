@@ -76,7 +76,7 @@ function deleteTaco(req, res) {
   Taco.findById(req.params.id)
   .then(taco => {
     if (taco.owner.equals(req.user.profile._id)) {
-      Taco.findByIdAndDelete(req.params.id)
+      taco.delete()
       .then(() => {
         res.redirect('/tacos')
       })
@@ -93,6 +93,7 @@ function deleteTaco(req, res) {
 
 function show(req, res) {
   Taco.findById(req.params.id)
+  .populate("owner")
   .then(taco => {
     res.render('tacos/show', {
       taco,
@@ -106,11 +107,11 @@ function show(req, res) {
 }
 
 function update(req, res) {
-  req.body.tasty = !!req.body.tasty
   Taco.findById(req.params.id)
   .then(taco => {
     if (taco.owner.equals(req.user.profile._id)) {
-      Taco.findByIdAndUpdate(req.params.id, req.body, {new: true})
+      req.body.tasty = !!req.body.tasty
+      taco.update(req.body, {new: true})
       .then(()=> {
         res.redirect(`/tacos/${taco._id}`)
       })
@@ -138,7 +139,6 @@ function create(req, res) {
 }
 
 function index(req, res) {
-  console.log('RING RING RING RING RING RING RING, 🍌🕻🍌🕻🍌🕻🍌🕻 BANANA PHOOOOOOONE!!!🍌🕻🍌🕻🍌🕻')
   Taco.find({})
   .then(tacos => {
     res.render('tacos/index', {

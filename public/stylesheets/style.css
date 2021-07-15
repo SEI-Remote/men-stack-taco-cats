@@ -85,3 +85,7 @@ nav > a {
   font-size: 1.8rem;
   display: inline-block;
 }
+
+.profile-avatar {
+  margin-top: 50px;
+}

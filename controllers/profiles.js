@@ -5,23 +5,6 @@ export {
   index,
   show,
   deleteCat,
-  updateCat
-}
-
-function updateCat(req, res) {
-  Profile.findById(req.user.profile)
-  .then(profile => {
-    let idx = profile.cats.indexOf(cat => cat._id === req.params.id)
-    profile.cats[idx].remove()
-    profile.save()
-    .then(()=> {
-      res.redirect(`/profiles/${req.user.profile}`)
-    })
-  })
-  .catch(err => {
-    console.log(err)
-    res.redirect(`/profiles/${req.user.profile}`)
-  })
 }
 
 function deleteCat(req, res) {
@@ -69,17 +52,36 @@ function index(req, res) {
   })
 }
 
-function show(req, res) {
-  console.log('RING RING RING RING RING RING RING, 🍌🕻🍌🕻🍌🕻🍌🕻 BANANA PHOOOOOOONE!!!🍌🕻🍌🕻🍌🕻')
+// function show(req, res) {
+//   Profile.findById(req.params.id)
+//   .then(profile => {
+//     res.render('profiles/show', {
+//       profile
+//     })
+//   })
+//   .catch(err => {
+//     console.log(err)
+//     res.redirect(`/profiles/${req.user.profile}`)
+//   })
+// }
 
+function show(req, res) {
   Profile.findById(req.params.id)
-  .then(profile => {
-    res.render('profiles/show', {
-      profile
+  .populate("friends")
+  .then((profile) => {
+    Profile.findById(req.user.profile._id)
+    .then(self => {
+      const isSelf = self._id.equals(profile._id)
+      res.render("profiles/show", {
+        title: `🐱 ${profile.name}'s profile`,
+        profile,
+        self,
+        isSelf,
+      })
     })
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err)
-    res.redirect(`/profiles/${req.user.profile}`)
+    res.redirect("/")
   })
 }
