@@ -10,31 +10,30 @@ export {
 function deleteCat(req, res) {
   Profile.findById(req.user.profile)
   .then(profile => {
-    let idx = profile.cats.indexOf(cat => cat._id === req.params.id)
-    profile.cats.splice(idx, 1)
+    profile.cats.remove({_id: req.params.id})
     profile.save()
     .then(()=> {
-      res.redirect(`/profiles/${req.user.profile}`)
+      res.redirect(`/profiles/${req.user.profile._id}`)
     })
   })
   .catch(err => {
     console.log(err)
-    res.redirect(`/profiles/${req.user.profile}`)
+    res.redirect(`/profiles/${req.user.profile._id}`)
   })
 }
 
 function createCat(req, res) {
-  Profile.find(req.user.profile)
+  Profile.findById(req.user.profile._id)
   .then(profile => {
     profile.cats.push(req.body)
     profile.save()
     .then(() => {
-      res.redirect('')
+      res.redirect(`/profiles/${req.user.profile._id}`)
     })
   })
   .catch(err => {
     console.log(err)
-    res.redirect(`/profiles/${req.user.profile}`)
+    res.redirect(`/profiles/${req.user.profile._id}`)
   })
 }
 
@@ -51,19 +50,6 @@ function index(req, res) {
     res.redirect(`/profiles/${req.user.profile}`)
   })
 }
-
-// function show(req, res) {
-//   Profile.findById(req.params.id)
-//   .then(profile => {
-//     res.render('profiles/show', {
-//       profile
-//     })
-//   })
-//   .catch(err => {
-//     console.log(err)
-//     res.redirect(`/profiles/${req.user.profile}`)
-//   })
-// }
 
 function show(req, res) {
   Profile.findById(req.params.id)

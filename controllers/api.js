@@ -9,9 +9,7 @@ export {
 
 function ingredientIndex(req, res) {
   Ingredient.find({})
-  .then(ingredients => {
-    res.json(ingredients)
-  })
+  .then(ingredients => res.json(ingredients))
   .catch(err => {
     res.json(err)
   })
@@ -19,9 +17,7 @@ function ingredientIndex(req, res) {
 
 function createIngredient(req, res) {
   Ingredient.create(req.body)
-  .then((ingredient)=> {
-    res.json(ingredient)
-  })
+  .then((ingredient)=> res.json(ingredient))
   .catch(err => {
     console.log(err)
     res.json(err)
@@ -30,9 +26,7 @@ function createIngredient(req, res) {
 
 function deleteIngredient(req, res) {
   Ingredient.findByIdAndDelete(req.params.id)
-  .then(ingredient => {
-    res.json(ingredient)
-  })
+  .then(ingredient => res.json(ingredient))
   .catch(err => {
     console.log(err)
     res.json(err)
