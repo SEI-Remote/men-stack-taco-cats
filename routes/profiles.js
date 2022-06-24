@@ -13,6 +13,9 @@ router.get('/:id', isLoggedIn, profilesCtrl.show)
 // POST localhost:3000/profiles/:id/cats
 router.post('/:id/cats', isLoggedIn, profilesCtrl.createCat)
 
+// DELETE localhost:3000/profiles/cats/:id
+router.delete('/cats/:id', isLoggedIn, profilesCtrl.deleteCat)
+
 export {
   router
 }

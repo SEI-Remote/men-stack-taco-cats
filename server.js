@@ -13,7 +13,7 @@ import { passUserToView } from './middleware/middleware.js'
 import('./config/database.js')
 
 // load passport
-import('./config/passport.js')
+import './config/passport.js'
 
 // require routes
 import { router as indexRouter } from './routes/index.js'
