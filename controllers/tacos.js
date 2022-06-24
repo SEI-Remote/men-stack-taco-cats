@@ -6,7 +6,7 @@ function index(req, res) {
     res.render('tacos/index', {
       tacos, // tacos: tacos,
       title: "🌮",
-      user: req.user,
+      user: req.user ? req.user : null
     })
   })
   .catch(err => {
@@ -15,6 +15,20 @@ function index(req, res) {
   })
 }
 
+function create(req, res) {
+  req.body.owner = req.user.profile._id
+  req.body.tasty = !!req.body.tasty
+  Taco.create(req.body)
+  .then(taco => {
+    res.redirect('/tacos')
+  })
+  .catch(err => {
+    console.log(err)
+    res.redirect('/tacos')
+  })
+}
+
 export {
-  index
+  index,
+  create
 }
