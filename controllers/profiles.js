@@ -26,7 +26,19 @@ function show(req, res) {
   })
 }
 
+function createCat(req, res) {
+  Profile.findById(req.user.profile._id)
+  .then(profile => {
+    profile.cats.push(req.body)
+    profile.save()
+    .then(() => {
+      res.redirect(`/profiles/${req.user.profile._id}`)
+    })
+  })
+}
+
 export {
   index,
-  show
+  show,
+  createCat
 }
