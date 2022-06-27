@@ -1,9 +1,28 @@
 import { Ingredient } from "../models/ingredient.js"
 
 function create(req, res) {
-  console.log("Ingredients! 🌽🌽")
+  Ingredient.create(req.body)
+  .then(ingredient => {
+    res.json(ingredient)
+  })
+  .catch(err => {
+    console.log(err)
+    res.json(err)
+  })
+}
+
+function index(req, res) {
+  Ingredient.find({})
+  .then(ingredients => {
+    res.json(ingredients)
+  })
+  .catch(err => {
+    console.log(err)
+    res.json(err)
+  })
 }
 
 export {
-  create
+  create,
+  index
 }
