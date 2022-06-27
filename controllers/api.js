@@ -22,7 +22,19 @@ function index(req, res) {
   })
 }
 
+function deleteIngredient(req, res) {
+  Ingredient.findByIdAndDelete(req.params.id)
+  .then(ingredient => {
+    res.json(ingredient)
+  })
+  .catch(err => {
+    console.log(err)
+    res.json(err)
+  })
+}
+
 export {
   create,
-  index
+  index,
+  deleteIngredient as delete
 }
